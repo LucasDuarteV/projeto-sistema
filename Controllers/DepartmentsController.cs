@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SalesWebMvc.Models.ViewModels;
-
+using SalesWebMvc.Data;
 public class DepartmentsController : Controller
 {
     private readonly SalesWebMvcContext _context;
