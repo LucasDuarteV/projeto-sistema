@@ -1,5 +1,6 @@
 ﻿using SalesWebMvc.Models;
 using SalesWebMvc.Data;
+
 namespace SalesWebMvc.Services
 {
     public class SellerService
@@ -14,6 +15,14 @@ namespace SalesWebMvc.Services
         public List<Seller> FindAll()
         {
             return _context.Seller.ToList();
+        }
+
+        public void Insert(Seller obj)
+        {
+            obj.Department = _context.Department.FirstOrDefault(d => d.Id == obj.DepartmentId);
+
+            _context.Add(obj);
+            _context.SaveChanges();
         }
     }
 }

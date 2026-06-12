@@ -12,7 +12,7 @@ using SalesWebMvc.Data;
 namespace SalesWebMvc.Migrations
 {
     [DbContext(typeof(SalesWebMvcContext))]
-    [Migration("20260612135530_InitialCreate")]
+    [Migration("20260612181648_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
