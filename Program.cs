@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using SalesWebMvc.Data;
+using SalesWebMvc.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 builder.Services.AddControllersWithViews();
 
@@ -14,8 +16,17 @@ builder.Services.AddDbContext<SalesWebMvcContext>(options =>
 
 
 builder.Services.AddScoped<SeedingService>();
+builder.Services.AddScoped<SellerService>();
 
 var app = builder.Build();
+
+
+using (var scope = app.Services.CreateScope())
+{
+    var seedingService = scope.ServiceProvider.GetRequiredService<SeedingService>();
+    seedingService.Seed();
+}
+
 
 if (!app.Environment.IsDevelopment())
 {
@@ -32,14 +43,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}"
-);
-
-
-using (var scope = app.Services.CreateScope())
-{
-    var seedingService = scope.ServiceProvider.GetRequiredService<SeedingService>();
-    seedingService.Seed();
-}
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
