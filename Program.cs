@@ -6,7 +6,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<SalesWebMvcContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("SalesWebMvcContext")));
+    options.UseMySql(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))
+    )
+);
+
+
+builder.Services.AddScoped<SeedingService>();
 
 var app = builder.Build();
 
@@ -25,6 +32,14 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}"
+);
+
+
+using (var scope = app.Services.CreateScope())
+{
+    var seedingService = scope.ServiceProvider.GetRequiredService<SeedingService>();
+    seedingService.Seed();
+}
 
 app.Run();
