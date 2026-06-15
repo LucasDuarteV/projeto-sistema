@@ -4,7 +4,6 @@ using SalesWebMvc.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<SalesWebMvcContext>(options =>
@@ -14,19 +13,17 @@ builder.Services.AddDbContext<SalesWebMvcContext>(options =>
     )
 );
 
-
 builder.Services.AddScoped<SeedingService>();
 builder.Services.AddScoped<SellerService>();
+builder.Services.AddScoped<DepartmentService>();
 
 var app = builder.Build();
-
 
 using (var scope = app.Services.CreateScope())
 {
     var seedingService = scope.ServiceProvider.GetRequiredService<SeedingService>();
     seedingService.Seed();
 }
-
 
 if (!app.Environment.IsDevelopment())
 {

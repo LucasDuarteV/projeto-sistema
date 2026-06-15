@@ -1,4 +1,4 @@
-﻿@model SalesWebMvc.Models.Seller
+﻿@model SalesWebMvc.Models.ViewModels.SellerFormViewModel
 
 @{
     ViewData["Title"] = "Create Seller";
@@ -15,38 +15,33 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="mb-3">
-                <label asp-for="Name" class="form-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="Seller.Name" class="form-label"></label>
+                <input asp-for="Seller.Name" class="form-control" />
+                <span asp-validation-for="Seller.Name" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
-                <label asp-for="Email" class="form-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+                <label asp-for="Seller.Email" class="form-label"></label>
+                <input asp-for="Seller.Email" class="form-control" />
+                <span asp-validation-for="Seller.Email" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
-                <label asp-for="BirthDate" class="form-label"></label>
-                <input asp-for="BirthDate" type="datetime-local" class="form-control" />
-                <span asp-validation-for="BirthDate" class="text-danger"></span>
+                <label asp-for="Seller.BirthDate" class="form-label"></label>
+                <input asp-for="Seller.BirthDate" type="datetime-local" class="form-control" />
+                <span asp-validation-for="Seller.BirthDate" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
-                <label asp-for="BaseSalary" class="form-label"></label>
-                <input asp-for="BaseSalary" class="form-control" />
-                <span asp-validation-for="BaseSalary" class="text-danger"></span>
+                <label asp-for="Seller.BaseSalary" class="form-label"></label>
+                <input asp-for="Seller.BaseSalary" class="form-control" />
+                <span asp-validation-for="Seller.BaseSalary" class="text-danger"></span>
             </div>
 
-            <div class="mb-3">
-                <label asp-for="DepartmentId" class="form-label"></label>
-
-                <select asp-for="DepartmentId"
-                        class="form-control"
-                        asp-items="ViewBag.Departments">
-                </select>
-
-                <span asp-validation-for="DepartmentId" class="text-danger"></span>
+            <div class="form-group">
+                <label asp-for="Seller.DepartmentId" class="control-label"></label>
+                <select asp-for="Seller.DepartmentId" asp-items="@(new SelectList(Model.Departments, "Id",
+                        "Name"))" class="form-control"></select>
             </div>
 
             <div class="mt-3">

@@ -3,18 +3,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using SalesWebMvc.Data;
 using SalesWebMvc.Models;
 using SalesWebMvc.Services;
-
+using SalesWebMvc.Models.ViewModels;
 namespace SalesWebMvc.Controllers
 {
     public class SellersController : Controller
     {
         private readonly SellerService _sellerService;
         private readonly SalesWebMvcContext _context;
+        private readonly DepartmentService _departementService;
 
-        public SellersController(SellerService sellerService, SalesWebMvcContext context)
+        public SellersController(SellerService sellerService, SalesWebMvcContext context, DepartmentService departementService)
         {
             _sellerService = sellerService;
             _context = context;
+            _departementService = departementService;
         }
 
         public IActionResult Index()
@@ -25,8 +27,9 @@ namespace SalesWebMvc.Controllers
 
         public IActionResult Create()
         {
-            ViewBag.Departments = new SelectList(_context.Department.ToList(), "Id", "Name");
-            return View();
+            var departments = _departementService.FindAll();
+            var viewModel = new SellerFormViewModel { Departments = departments };
+            return View(viewModel);
         }
 
         [HttpPost]

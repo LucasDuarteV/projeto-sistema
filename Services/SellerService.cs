@@ -19,8 +19,6 @@ namespace SalesWebMvc.Services
 
         public void Insert(Seller obj)
         {
-            obj.Department = _context.Department.FirstOrDefault(d => d.Id == obj.DepartmentId);
-
             _context.Add(obj);
             _context.SaveChanges();
         }
