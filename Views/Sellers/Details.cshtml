@@ -1,0 +1,83 @@
+﻿@model SalesWebMvc.Models.Seller
+
+@{
+    ViewData["Title"] = "Seller Details";
+}
+
+<div class="container mt-4">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">Seller Details</h3>
+        </div>
+
+        <div class="card-body">
+
+            <dl class="row">
+
+                <dt class="col-sm-3 fw-bold">
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+
+                <dt class="col-sm-3 fw-bold">
+                    @Html.DisplayNameFor(model => model.Email)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
+
+                <dt class="col-sm-3 fw-bold">
+                    @Html.DisplayNameFor(model => model.BirthDate)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.BirthDate)
+                </dd>
+
+                <dt class="col-sm-3 fw-bold">
+                    @Html.DisplayNameFor(model => model.BaseSalary)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.BaseSalary)
+                </dd>
+
+                <dt class="col-sm-3 fw-bold">
+                    Department
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Department.Name)
+                </dd>
+
+            </dl>
+
+            <hr />
+
+            <div class="d-flex gap-2">
+
+                <a asp-action="Edit"
+                   asp-route-id="@Model.Id"
+                   class="btn btn-warning">
+                    Edit
+                </a>
+
+                <a asp-action="Delete"
+                   asp-route-id="@Model.Id"
+                   class="btn btn-danger">
+                    Delete
+                </a>
+
+                <a asp-action="Index"
+                   class="btn btn-secondary">
+                    Back to List
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
