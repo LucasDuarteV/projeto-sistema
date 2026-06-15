@@ -34,21 +34,21 @@
                     @Html.DisplayNameFor(model => model.BirthDate)
                 </dt>
                 <dd class="col-sm-9">
-                    @Html.DisplayFor(model => model.BirthDate)
+                    @Model.BirthDate.ToString("MM/dd/yyyy")
                 </dd>
 
                 <dt class="col-sm-3 fw-bold">
                     @Html.DisplayNameFor(model => model.BaseSalary)
                 </dt>
                 <dd class="col-sm-9">
-                    @Html.DisplayFor(model => model.BaseSalary)
+                    @Model.BaseSalary.ToString("F2")
                 </dd>
 
                 <dt class="col-sm-3 fw-bold">
                     Department
                 </dt>
                 <dd class="col-sm-9">
-                    @Html.DisplayFor(model => model.Department.Name)
+                    @Model.Department?.Name
                 </dd>
 
             </dl>

@@ -6,8 +6,14 @@ using Microsoft.AspNetCore.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
-CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-US");
+var cultureInfo = new CultureInfo("en-US");
+
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    options.DefaultRequestCulture = new RequestCulture(cultureInfo);
+    options.SupportedCultures = new List<CultureInfo> { cultureInfo };
+    options.SupportedUICultures = new List<CultureInfo> { cultureInfo };
+});
 
 builder.Services.AddControllersWithViews();
 
@@ -21,6 +27,7 @@ builder.Services.AddDbContext<SalesWebMvcContext>(options =>
 builder.Services.AddScoped<SeedingService>();
 builder.Services.AddScoped<SellerService>();
 builder.Services.AddScoped<DepartmentService>();
+builder.Services.AddScoped<SalesRecordService>(); 
 
 var app = builder.Build();
 
@@ -36,14 +43,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-var cultureInfo = new CultureInfo("en-US");
-
-app.UseRequestLocalization(new RequestLocalizationOptions
-{
-    DefaultRequestCulture = new RequestCulture(cultureInfo),
-    SupportedCultures = new List<CultureInfo> { cultureInfo },
-    SupportedUICultures = new List<CultureInfo> { cultureInfo }
-});
+app.UseRequestLocalization();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
