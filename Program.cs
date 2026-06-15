@@ -1,8 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using SalesWebMvc.Data;
 using SalesWebMvc.Services;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
+CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-US");
 
 builder.Services.AddControllersWithViews();
 
@@ -30,6 +35,15 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
+
+var cultureInfo = new CultureInfo("en-US");
+
+app.UseRequestLocalization(new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture(cultureInfo),
+    SupportedCultures = new List<CultureInfo> { cultureInfo },
+    SupportedUICultures = new List<CultureInfo> { cultureInfo }
+});
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
